@@ -1,0 +1,46 @@
+What is Data Analysis?
+Data analysis is the process of collecting, cleaning, transforming, and interpreting data to uncover useful insights, patterns, and trends. 
+It helps in decision-making by turning raw information into meaningful knowledge.
+
+🔹 Key Steps in Data Analysis
+Data Collection
+
+Gather data from sources (surveys, databases, text documents, APIs).
+
+Data Cleaning
+
+Remove duplicates, handle missing values, correct errors.
+
+Data Transformation
+
+Convert raw data into structured formats (tables, features, metrics).
+
+Exploratory Data Analysis (EDA)
+
+Use statistics and visualization to understand distributions and relationships.
+
+Modeling & Prediction
+
+Apply algorithms (machine learning, regression, classification).
+
+Interpretation & Reporting
+
+Translate results into actionable insights, dashboards, or reports.
+
+🔹 Types of Data Analysis
+Descriptive Analysis → What happened? (summaries, averages, charts)
+
+Diagnostic Analysis → Why did it happen? (correlations, root cause) python will use libraries
+
+Predictive Analysis → What will happen? (machine learning, forecasting)
+
+Prescriptive Analysis → What should we do? (recommendations, optimization)
+
+🔹 Tools & Techniques
+Python Libraries: pandas, numpy, matplotlib, seaborn, scikit-learn
+
+Statistical Methods: mean, median, correlation, hypothesis testing
+
+Visualization: bar charts, scatter plots, heatmaps, dashboards
+
+Machine Learning: classification, regression, clustering
