@@ -1,0 +1,44 @@
+Why OOP in Python
+Definition: Object-Oriented Programming (OOP) is used to organize code into classes and objects, making it more reusable, maintainable, and scalable.
+Why we use OOP:
+- - - - - - - - - -
+- Code reusability
+- Better structure (modularity)
+- Easy maintenance
+- Real-world mapping
+- Data security
+Real-World Example:
+- - - - - - - - - -
+In a banking application, instead of writing separate code for every user, we create a BankAccount class and reuse it for multiple users.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+1. Class
+Definition: A class is a blueprint or template it maintain attribute and methods in a unit called as class.
+Real-World Example:
+- - - - - - - - - -
+Car design (class) → Actual car (object)
+Code:
+- - - - - - - - - -
+class Student:
+    def __init__(self, name):
+        self.name = name
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+2.Object
+Definition:An object is an instance of a class that contains data and methods.
+        “An instance (object) is a real entity created from a class that contains data and can access the behavior (methods) defined in the class.”
+Real-World Example:
+- - - - - - - - - -
+Student class → Ravi is an object
+Code:
+- - - - - - - - - -
+s1 = Student("Dedeepya")
+print(s1.name) #Dedeepya
+
+depends on user
+Class → blueprint  
+Object → instance  
+Encapsulation → data hiding (Instagram)  
+Inheritance → reuse code (LinkedIn)  
+Polymorphism → same method, different behavior (YouTube)  
+Abstraction → hide complexity (PhonePe)
+method=class instance static
+types of methods, types of attributes.
