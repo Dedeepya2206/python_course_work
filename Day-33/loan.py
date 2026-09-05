@@ -11,10 +11,10 @@ class Customer:
         self.credit_score = credit_score
 
     def check_eligibility(self):
-            if self.age < 21 or self.credit_score < 650 or self.income < 25000:
-                return False
-            return True
-    
+        if self.age < 21 or self.credit_score < 650 or self.income < 25000:
+            return False
+        return True
+
     def display_customer(self):
         print("\nCustomer Details")
         print("----------------")
@@ -26,8 +26,9 @@ class Customer:
         print("Income       :", self.income)
         print("Credit Score :", self.credit_score)
 
+
 class Loan(ABC):
-    def __init__(self,loan_id,customer,loan_amount,interest_rate,tenure):
+    def __init__(self, loan_id, customer, loan_amount, interest_rate, tenure):
         self.loan_id = loan_id
         self.customer = customer
         self.__loan_amount = loan_amount
@@ -43,11 +44,9 @@ class Loan(ABC):
         pass
 
     def check_loan_eligibility(self):
-
         if not self.customer.check_eligibility():
             self.status = "Rejected"
             return False
-
         return True
 
     def sanction_loan(self):
@@ -56,40 +55,35 @@ class Loan(ABC):
             return
 
         if not self.check_loan_eligibility():
-            print("Customer is not eligible for the loan")
+            print("Customer is not eligible")
             return
 
         self.status = "Sanctioned"
-
         print("\nLoan sanctioned successfully")
 
     def repay(self, amount):
-
         if self.status != "Sanctioned":
-            print("Repayment is not allowed")
-            print("Loan Status:", self.status)
+            print("Repayment not allowed")
             return
 
         if amount <= 0:
-            print("Invalid repayment amount")
+            print("Invalid amount")
             return
 
         if amount > self.__balance:
-            print("Repayment amount is greater than outstanding balance")
+            print("Amount exceeds balance")
             return
 
         self.__balance -= amount
         self.__total_paid += amount
-
         self.repayment_history.append(amount)
 
-        print("\nRepayment successful")
-        print("Amount Paid          :", amount)
-        print("Outstanding Balance  :", self.__balance)
+        print("\nPaid:", amount)
+        print("Balance:", self.__balance)
 
         if self.__balance == 0:
             self.status = "Closed"
-            print("Loan closed successfully")
+            print("Loan closed")
 
     def get_balance(self):
         return self.__balance
@@ -101,144 +95,60 @@ class Loan(ABC):
         return self.__total_paid
 
     def display_statement(self):
+        print("\n=== LOAN STATEMENT ===")
+        print("Loan ID:", self.loan_id)
+        print("Customer:", self.customer.name)
+        print("Loan Amount:", self.__loan_amount)
+        print("Balance:", self.__balance)
+        print("Status:", self.status)
 
-        print("\n")
-        print("=" * 40)
-        print("LOAN STATEMENT")
-        print("=" * 40)
-
-        print("Loan ID              :", self.loan_id)
-        print("Customer Name        :", self.customer.name)
-        print("Loan Amount          :", self.__loan_amount)
-        print("Interest Rate        :", self.interest_rate)
-        print("Tenure               :", self.tenure)
-        print("Total Paid           :", self.__total_paid)
-        print("Outstanding Balance  :", self.__balance)
-        print("Loan Status          :", self.status)
-
-        print("\nRepayment History")
-
-        if not self.repayment_history:
-            print("No repayments made")
-
-        else:
-            for i in range(len(self.repayment_history)):
-                print(f"Payment {i+1}          : {self.repayment_history[i]}")
-
-        print("=" * 40)
+        print("\nRepayments:")
+        for i, amt in enumerate(self.repayment_history, 1):
+            print(f"{i}. {amt}")
 
     def __str__(self):
-
-        return (
-            f"Loan ID: {self.loan_id}, "
-            f"Customer: {self.customer.name}, "
-            f"Loan Amount: {self.__loan_amount}, "
-            f"Outstanding: {self.__balance}, "
-            f"Status: {self.status}"
-        )
+        return f"{self.loan_id} | {self.customer.name} | {self.status}"
 
 
 class HomeLoan(Loan):
-
     def calculate_emi(self):
+        p = self.get_loan_amount()
+        r = self.interest_rate / (12 * 100)
+        n = self.tenure * 12
 
-        principal = self.get_loan_amount()
-        monthly_rate = self.interest_rate / (12 * 100)
-        months = self.tenure * 12
-
-        emi = (
-            principal
-            * monthly_rate
-            * (1 + monthly_rate) ** months
-            / ((1 + monthly_rate) ** months - 1)
-        )
-
+        emi = (p * r * (1 + r)**n) / ((1 + r)**n - 1)
         return round(emi, 2)
 
 
-class PersonalLoan(Loan):
+# Create Customers
+Dedeepya = Customer(1, 'Dedeepya', 'dedeepya@gmail.com', 9876543210, 21, 50000, 750)
+sai = Customer(2, 'Sai', 'sai@gmail.com', 9876543210, 21, 60000, 600)
 
-    def calculate_emi(self):
+Dedeepya.display_customer()
+print("Eligibility:", Dedeepya.check_eligibility())
 
-        principal = self.get_loan_amount()
-        monthly_rate = self.interest_rate / (12 * 100)
-        months = self.tenure * 12
+sai.display_customer()
+print("Eligibility:", sai.check_eligibility())
 
-        emi = (
-            principal
-            * monthly_rate
-            * (1 + monthly_rate) ** months
-            / ((1 + monthly_rate) ** months - 1)
-        )
-
-        return round(emi, 2)
-
-
-class CarLoan(Loan):
-
-    def calculate_emi(self):
-
-        principal = self.get_loan_amount()
-        monthly_rate = self.interest_rate / (12 * 100)
-        months = self.tenure * 12
-
-        emi = (
-            principal
-            * monthly_rate
-            * (1 + monthly_rate) ** months
-            / ((1 + monthly_rate) ** months - 1)
-        )
-
-        return round(emi, 2)
-
-sajid = Customer(1,'sajid','sajid@gmail.com',9876543210,21,50000,750)
-sajid.display_customer()
-print("Loan Eligibility:",sajid.check_eligibility())
-
-
-mahesh = Customer(1,'mahesh','mahesh@gmail.com',9876543210,21,60000,600)
-mahesh.display_customer()
-print("Loan Eligibility:",mahesh.check_eligibility())
-
-home_loan = HomeLoan(
-    "HL1001",
-    customer1,
-    500000,
-    8.5,
-    10
-)
-
-
-customer1.display_customer()
+# Create Loan (correct)
+home_loan = HomeLoan("HL1001", Dedeepya, 500000, 8.5, 10)
 
 print("\nLoan Application")
-print("----------------")
-
 print(home_loan)
 
-print("\nChecking Loan Eligibility")
-
 if home_loan.check_loan_eligibility():
-
-    print("Customer is eligible")
-
     home_loan.sanction_loan()
 
-    print("\nEMI")
-    print("Monthly EMI:", home_loan.calculate_emi())
-
-    print("\nRepayments")
+    print("\nEMI:", home_loan.calculate_emi())
 
     home_loan.repay(100000)
     home_loan.repay(150000)
     home_loan.repay(250000)
 
 else:
+    print("Not eligible")
 
-    print("Customer is not eligible")
-
-
-print("\nFinal Loan Details")
+print("\nFinal Details:")
 print(home_loan)
 
 home_loan.display_statement()
